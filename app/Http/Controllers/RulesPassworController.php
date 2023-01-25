@@ -32,7 +32,7 @@ class RulesPassworController extends Controller
     }
 
     protected function minSize(String $name, Int $value) {
-        $expression = "/[\w_@.\/!#&+-]{{$value},}/i";
+        $expression = "/[_@.\/!#$%^&*\(\)+-\{\}\[\]]{{$value},}/i";
         return ["rule" => $name, "verify" => preg_match($expression, $this->request->password)];
     }
 
