@@ -41,4 +41,10 @@ class RulesPassworController extends Controller
         $expression = "/(?:.*[_@.\/!#$%^&*\(\)+-\{\}\[\]]){{$value},}/i";
         return ["rule" => $name, "verify" => preg_match($expression, $this->request->password)];
     }
+
+    protected function minUppercase(String $name, Int $value) {
+        //(?:.*[A-Z]) representa pelo menos um caractere maiúsculo.
+        $expression = "/(?:.*[A-Z]){{$value},}/";
+        return ["rule" => $name, "verify" => preg_match($expression, $this->request->password)];
+    }
 }
