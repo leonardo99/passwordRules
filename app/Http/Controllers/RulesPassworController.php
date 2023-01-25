@@ -38,7 +38,7 @@ class RulesPassworController extends Controller
 
     protected function minSpecialChars(String $name, Int $value) {
         //(?:.*[-+_!@#$%^&*., ?]) representa pelo menos um caractere especial.
-        $expression = "/(?:.*[_@.\/!#&+-]){{$value},}/i";
+        $expression = "/(?:.*[_@.\/!#$%^&*\(\)+-\{\}\[\]]){{$value},}/i";
         return ["rule" => $name, "verify" => preg_match($expression, $this->request->password)];
     }
 }
