@@ -13,7 +13,7 @@ class RulesPassworController extends Controller
     public function verify(Request $request) 
     {
         // dd($request->rules);
-        $this->rulesArray($this->request->rules);
+        dd($this->rulesArray($this->request->rules));
         // return response()->json([
         //     "password" => $request->password, 
         //     "rules" => $request->rules
@@ -22,14 +22,23 @@ class RulesPassworController extends Controller
    
     public function rulesArray($rules)
     {
+        $validationResult = [];
+
         foreach ($rules as $key => $rule) {
-            // dd($rule);
-           dd(call_user_func_array(array($this, $rule['rule']), array($rule['rule'], $rule['value'])));
+            array_push($validationResult, call_user_func_array(array($this, $rule['rule']), array($rule['rule'], $rule['value'])));
         }
+        
+        return $validationResult;
     }
 
     protected function minSize(String $name, Int $value) {
         $expression = "/[\w_@.\/!#&+-]{{$value},}/i";
+        return ["rule" => $name, "verify" => preg_match($expression, $this->request->password)];
+    }
+
+    protected function minSpecialChars(String $name, Int $value) {
+        //(?:.*[-+_!@#$%^&*., ?]) representa pelo menos um caractere especial.
+        $expression = "/(?:.*[_@.\/!#&+-]){{$value},}/i";
         return ["rule" => $name, "verify" => preg_match($expression, $this->request->password)];
     }
 }
