@@ -59,4 +59,9 @@ class RulesPassworController extends Controller
         $expression = "/(?:.*[0-9]){{$value},}/";
         return ["rule" => $name, "verify" => preg_match($expression, $this->request->password)];
     }
+    
+    protected function noRepeted(String $name) {
+        $expression = "/(.)\\1+/i";
+        return ["rule" => $name, "verify" => preg_match($expression, $this->request->password) ? 0 : 1];
+    }
 }
