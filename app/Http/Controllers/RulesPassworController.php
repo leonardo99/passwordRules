@@ -69,11 +69,4 @@ class RulesPassworController extends Controller
         $expression = "/(.)\\1+/i";
         return ["rule" => $name, "verify" => preg_match($expression, $this->request->password) ? 0 : 1];
     }
-
-    protected function functionExists ($functions) {
-        foreach ($functions as $key => $function) {
-            dd($function);
-        }
-        return function_exists($name) ? true : ["error" => "Function does not exist."];
-    }
 }
