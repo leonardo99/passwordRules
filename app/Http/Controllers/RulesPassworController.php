@@ -53,4 +53,10 @@ class RulesPassworController extends Controller
         $expression = "/(?:.*[a-z]){{$value},}/";
         return ["rule" => $name, "verify" => preg_match($expression, $this->request->password)];
     }
+
+    protected function minDigit(String $name, Int $value) {
+        //(?:.*[a-z]) representa pelo menos um caractere minúsculo.
+        $expression = "/(?:.*[0-9]){{$value},}/";
+        return ["rule" => $name, "verify" => preg_match($expression, $this->request->password)];
+    }
 }

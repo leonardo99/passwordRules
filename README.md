@@ -5,7 +5,7 @@ baseada nas regras pedidas.
 [x] minSize: tem pelo menos x caracteres.
 [x] minUppercase: tem pelo menos x caracteres maiúsculos
 [X] minLowercase: tem pelo menos x caracteres minúsculos
-[] minDigit: tem pelo menos x dígitos (0-9)
+[x] minDigit: tem pelo menos x dígitos (0-9)
 [x] minSpecialChars: tem pelo menos x caracteres especiais ( Os caracteres especiais são os
 caracteres da seguinte string: "!@#$%^&*()-+\/{}[]" )
 [] noRepeted: não tenha nenhum caractere repetido em sequência ( ou seja, "aab" viola esta
