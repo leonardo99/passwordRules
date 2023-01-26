@@ -10,10 +10,6 @@ class RuleRepository
         
     }
 
-    protected function ola(){
-        return "olá";
-    }
-
     protected function minSize(String $name, Int $value): Array {
         $expression = "/[_@.\/!#$%^&*\(\)+-\{\}\[\]]{{$value},}/i";
         return ["rule" => $name, "verify" => preg_match($expression, $this->request->password)];
