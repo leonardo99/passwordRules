@@ -25,12 +25,15 @@ class RulesPassworController extends Controller
     public function rulesArray($rules)
     {
         $validationResult = [];
-
-        foreach ($rules as $key => $rule) {
-            call_user_func_array(array($this, $rule['rule']), array($rule['rule'], $rule['value']))['verify'] ? '' : array_push($validationResult, call_user_func_array(array($this, $rule['rule']), array($rule['rule'], $rule['value']))['rule']);
+        try {
+            foreach ($rules as $key => $rule) {
+                call_user_func_array(array($this, $rule['rule']), array($rule['rule'], $rule['value']))['verify'] ? '' : array_push($validationResult, call_user_func_array(array($this, $rule['rule']), array($rule['rule'], $rule['value']))['rule']);
+            }
+            
+            return sizeof($validationResult) ? ["verify" => false, "noMatch" => $validationResult] : ["verify" => true, "noMatch" => $validationResult];
+        } catch (\Exception $e) {
+            return ["error" => $e->getMessage()];
         }
-        
-        return sizeof($validationResult) ? ["verify" => false, "noMatch" => $validationResult] : ["verify" => true, "noMatch" => $validationResult];
     }
 
     protected function minSize(String $name, Int $value) {
@@ -65,5 +68,12 @@ class RulesPassworController extends Controller
     protected function noRepeted(String $name) {
         $expression = "/(.)\\1+/i";
         return ["rule" => $name, "verify" => preg_match($expression, $this->request->password) ? 0 : 1];
+    }
+
+    protected function functionExists ($functions) {
+        foreach ($functions as $key => $function) {
+            dd($function);
+        }
+        return function_exists($name) ? true : ["error" => "Function does not exist."];
     }
 }
