@@ -7,13 +7,15 @@ use Illuminate\Http\Request;
 class RulesPassworController extends Controller
 {
     public $request;
+
     public function __construct(Request $request) {
         $this->request = $request;
     }
+
     public function verify(Request $request) 
     {
         // dd($request->rules);
-        dd($this->rulesArray($this->request->rules));
+        return response()->json($this->rulesArray($this->request->rules));
         // return response()->json([
         //     "password" => $request->password, 
         //     "rules" => $request->rules
@@ -25,10 +27,10 @@ class RulesPassworController extends Controller
         $validationResult = [];
 
         foreach ($rules as $key => $rule) {
-            array_push($validationResult, call_user_func_array(array($this, $rule['rule']), array($rule['rule'], $rule['value'])));
+            call_user_func_array(array($this, $rule['rule']), array($rule['rule'], $rule['value']))['verify'] ? '' : array_push($validationResult, call_user_func_array(array($this, $rule['rule']), array($rule['rule'], $rule['value']))['rule']);
         }
         
-        return $validationResult;
+        return sizeof($validationResult) ? ["verify" => false, "noMatch" => $validationResult] : ["verify" => true, "noMatch" => $validationResult];
     }
 
     protected function minSize(String $name, Int $value) {
