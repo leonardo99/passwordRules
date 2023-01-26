@@ -5,11 +5,6 @@ namespace App\Repository;
 class RuleRepository 
 {
    
-
-    public function __construct() {
-        
-    }
-
     protected function minSize(String $name, Int $value): Array {
         $expression = "/[_@.\/!#$%^&*\(\)+-\{\}\[\]]{{$value},}/i";
         return ["rule" => $name, "verify" => preg_match($expression, $this->request->password)];
