@@ -14,12 +14,7 @@ class RulesPassworController extends Controller
 
     public function verify(Request $request) 
     {
-        // dd($request->rules);
         return response()->json($this->rulesArray($this->request->rules));
-        // return response()->json([
-        //     "password" => $request->password, 
-        //     "rules" => $request->rules
-        // ]);
     }
    
     public function rulesArray($rules)
