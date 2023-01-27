@@ -18,6 +18,8 @@ class RulesPassworController extends Controller
 
     public function verify(Request $request) 
     {
-        return response()->json($this->ruleService->verifyRules($this->request->rules), 200);
+        $result = $this->ruleService->verifyRules($this->request->rules);
+
+        return response()->json($result, $result['verify'] ? 200 : 422);
     }
 }
