@@ -11,7 +11,7 @@ class RuleRepository
 
     protected function minSpecialChars(String $name, Int $value): Array {
         //(?:.*[-+_!@#$%^&*., ?]) representa pelo menos um caractere especial.
-        $expression = "/(?:.*[_@.\/!#$%^&*\(\)+-\{\}\[\]]){{$value},}/i";
+        $expression = "/(?:.*[^\w]){{$value},}/";
         return ["rule" => $name, "verify" => preg_match($expression, $this->request->password)];
     }
 
