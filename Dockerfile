@@ -1,13 +1,16 @@
 FROM alpine:latest
 
-WORKDIR /var/www/html
+WORKDIR /var/www/html/
 
-RUN echo "America/Sao_Paulo" > /etc/timezone
+# Essentials
+RUN echo "UTC" > /etc/timezone
 RUN apk add --no-cache zip unzip curl sqlite nginx supervisor
 
+# Installing bash
 RUN apk add bash
 RUN sed -i 's/bin\/ash/bin\/bash/g' /etc/passwd
 
+# Installing PHP
 RUN apk add --no-cache php8 \
     php8-common \
     php8-fpm \
@@ -32,19 +35,23 @@ RUN apk add --no-cache php8 \
     php8-tokenizer \
     php8-pecl-redis
 
+# Installing composer
 RUN curl -sS https://getcomposer.org/installer -o composer-setup.php
 RUN php composer-setup.php --install-dir=/usr/local/bin --filename=composer
 RUN rm -rf composer-setup.php
 
+# Configure supervisor
 RUN mkdir -p /etc/supervisor.d/
-COPY .docker/supervisor.ini /etc/supervisor.d/supervisor.ini
+COPY .docker/supervisord.ini /etc/supervisor.d/supervisord.ini
 
+# Configure PHP
 RUN mkdir -p /run/php/
 RUN touch /run/php/php8.0-fpm.pid
 
-COPY .docker/php.ini-production /etc/php8/php.ini
 COPY .docker/php-fpm.conf /etc/php8/php-fpm.conf
+COPY .docker/php.ini-production /etc/php8/php.ini
 
+# Configure nginx
 COPY .docker/nginx.conf /etc/nginx/
 COPY .docker/nginx-laravel.conf /etc/nginx/modules/
 
@@ -54,11 +61,10 @@ RUN touch /run/nginx/nginx.pid
 RUN ln -sf /dev/stdout /var/log/nginx/access.log
 RUN ln -sf /dev/stderr /var/log/nginx/error.log
 
+# Building process
 COPY . .
 RUN composer install --no-dev
+RUN chown -R nobody:nobody /var/www/html/storage
 
 EXPOSE 80
 CMD ["supervisord", "-c", "/etc/supervisor.d/supervisord.ini"]
-
-
-
