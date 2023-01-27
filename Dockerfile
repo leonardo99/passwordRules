@@ -46,7 +46,7 @@ COPY .docker/php.ini-production /etc/php8/php.ini
 COPY .docker/php-fpm.conf /etc/php8/php-fpm.conf
 
 COPY .docker/nginx.conf /etc/nginx/
-COPY docker/nginx-laravel.conf /etc/nginx/modules/
+COPY .docker/nginx-laravel.conf /etc/nginx/modules/
 
 RUN mkdir -p /run/nginx/
 RUN touch /run/nginx/nginx.pid
