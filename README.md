@@ -22,4 +22,38 @@ baseada nas regras pedidas.
 - [x] minSpecialChars: tem pelo menos x caracteres especiais ( Os caracteres especiais são os
 caracteres da seguinte string: "!@#$%^&*()-+\/{}[]" )
 [x] noRepeted: não tenha nenhum caractere repetido em sequência ( ou seja, "aab" viola esta
+<<<<<<< HEAD
 condição, mas "aba" não
+=======
+condição, mas "aba" não
+
+## Requisitos
+- PHP >= 7.3
+
+### Executando o Projeto
+```bash
+# Clonar repositório
+$ git clone https://github.com/leonardo99/passwordRules
+
+# Acessar a pasta do projeto
+$ cd passwordRules
+
+# Baixar as bibliotecas necessárias para executar o projeto
+$ composer install --no-scripts
+
+# Gerar chave do projeto
+$ php artisan key:generate
+
+# Iniciar o servidor
+$ php artisan serve
+
+#O servidor irá iniciar na porta: 8000 - acesse <http://localhost:8000>
+```
+## Tecnologias
+
+Foram usadas as seguintes tecnologias no desenvolvimento do projeto:
+
+- [Laravel] (https://laravel.com)
+
+Documentação API: https://documenter.getpostman.com/view/4943137/2s8ZDeUz8L 
+>>>>>>> features/1-validar-senha-por-regras
