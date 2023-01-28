@@ -8,5 +8,7 @@ baseada nas regras pedidas.
 [x] minDigit: tem pelo menos x dígitos (0-9)
 [x] minSpecialChars: tem pelo menos x caracteres especiais ( Os caracteres especiais são os
 caracteres da seguinte string: "!@#$%^&*()-+\/{}[]" )
-[] noRepeted: não tenha nenhum caractere repetido em sequência ( ou seja, "aab" viola esta
+[x] noRepeted: não tenha nenhum caractere repetido em sequência ( ou seja, "aab" viola esta
 condição, mas "aba" não
+
+Documentação API: https://documenter.getpostman.com/view/4943137/2s8ZDeUz8L
