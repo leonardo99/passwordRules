@@ -22,9 +22,6 @@ baseada nas regras pedidas.
 - [x] minSpecialChars: tem pelo menos x caracteres especiais ( Os caracteres especiais são os
 caracteres da seguinte string: "!@#$%^&*()-+\/{}[]" )
 [x] noRepeted: não tenha nenhum caractere repetido em sequência ( ou seja, "aab" viola esta
-<<<<<<< HEAD
-condição, mas "aba" não
-=======
 condição, mas "aba" não
 
 ## Requisitos
@@ -55,5 +52,4 @@ Foram usadas as seguintes tecnologias no desenvolvimento do projeto:
 
 - [Laravel] (https://laravel.com)
 
-Documentação API: https://documenter.getpostman.com/view/4943137/2s8ZDeUz8L 
->>>>>>> features/1-validar-senha-por-regras
+Documentação API: https://documenter.getpostman.com/view/4943137/2s8ZDeUz8L
