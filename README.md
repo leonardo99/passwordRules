@@ -52,4 +52,4 @@ Foram usadas as seguintes tecnologias no desenvolvimento do projeto:
 
 - [Laravel] (https://laravel.com)
 
-Documentação API: https://documenter.getpostman.com/view/4943137/2s8ZDeUz8L
+Documentação API: https://documenter.getpostman.com/view/4943137/2s8ZDeUz8L 
