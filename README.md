@@ -21,11 +21,7 @@ baseada nas regras pedidas.
 - [x] minDigit: tem pelo menos x dígitos (0-9)
 - [x] minSpecialChars: tem pelo menos x caracteres especiais ( Os caracteres especiais são os
 caracteres da seguinte string: "!@#$%^&*()-+\/{}[]" )
-[x] noRepeted: não tenha nenhum caractere repetido em sequência ( ou seja, "aab" viola esta
-<<<<<<< HEAD
-condição, mas "aba" não
-=======
-condição, mas "aba" não
+[x] noRepeted: não tenha nenhum caractere repetido em sequência ( ou seja, "aab" viola esta condição, mas "aba" não
 
 ## Requisitos
 - PHP >= 7.3
@@ -55,5 +51,20 @@ Foram usadas as seguintes tecnologias no desenvolvimento do projeto:
 
 - [Laravel] (https://laravel.com)
 
-Documentação API: https://documenter.getpostman.com/view/4943137/2s8ZDeUz8L 
->>>>>>> features/1-validar-senha-por-regras
+## Estrutura do Projeto
+- `App/Http/Controllers/RulesPassworController`: Usado para gerenciar as requisições e chamar método de validação da senha para retornar o resultado.
+
+- `App/Services/RuleService`: Classe com implementação responsável pela regra de negócio para realizar a validação da senha. Nela está contida o método `verifyRules`.
+    - `verifyRules`: Tem a função de receber um array contendo as regras passadas pelo usuário. Nesse array, são feitas iterações por meio de um `foreach()`. Para cada regra válida é usada a função `call_user_func_array()` para chamar um método com o nome contido na propriedade rule, onde é passando as propriedades rule e value. O método chamado verifica por meio de expressão regular se a senha passada atende os requisitos. Caso o valor retornado seja falso, o nome da regra é adicionado ao array `$validationResult`. Após o loop, é feita uma verificação do tamanho do array `$validationResult`, caso o valor seja maior que zero, é retornado um array com chave verify definida como false e o array `$validationResult` contendo as regras que não foram satisfeitas. Se o tamanho for igual a zero, verifiy é definida como true e o array pessado com valor vazio. 
+
+- `App/Services/RuleRepository`: Essa classe contém os métodos que são herdados pela classe `App/Services/RuleService`. Esses métodos verificam se a senha passada pelo usuário atende a determinados requisitos. Ao final é retornado um array contendo o nome da regra de validação e um valor booleano para indicar se a regra foi ou não atendida.
+    - `minSize`: verifica se a senha tem pelo menos o valor definido pelo usuário de caracteres.
+    - `minSpecialChars`: verifica se a senha contém a quantidade de caracteres especiais definidas pelo usuário.
+    - `minUppercase`: verifica se a senha contém a quantidade de letras maiúsculas definidas pelo usuário.
+    - `minLowercase`: verifica se a senha contém a quantidade de letras minúsculas definidas pelo usuário.
+    - `minDigit`: verifica se a senha contém a quantidade de dígitos definidos pelo usuário.
+    - `noRepeted`: verifica se a senha contém a quantidade definida pelo usuário de caractere repetido.
+    
+## Links
+- Documentação API: https://documenter.getpostman.com/view/4943137/2s8ZDeUz8L
+- Endpoint de teste: https://passwordtest.fly.dev/api/verify
