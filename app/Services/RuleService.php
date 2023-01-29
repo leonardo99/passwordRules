@@ -4,9 +4,10 @@ namespace App\Services;
 
 use Illuminate\Http\Request;
 
+use App\Services\Interfaces\IRuleService;
 use App\Repository\RuleRepository;
 
-class RuleService extends RuleRepository
+class RuleService extends RuleRepository implements IRuleService
 {
     public $request;
 
